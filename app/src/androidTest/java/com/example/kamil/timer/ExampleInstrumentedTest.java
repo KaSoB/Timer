@@ -1,4 +1,4 @@
-package com.example.kamil.cwiczenie2a;
+package com.example.kamil.timer;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

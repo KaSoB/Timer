@@ -6,12 +6,12 @@
     <EditTextPreference
         android:title="@string/NumOfLaps"
         android:summary="@string/NumOfLapsSummary"
-        android:defaultValue="@string/numOfItemsToShow"
-        android:key="numOfLaps" />
+        android:defaultValue="@string/numOfLapsDefaultValue"
+        android:key="NumOfLaps" />
 
     <CheckBoxPreference
-        android:title="@string/ShowTimeLapDifference"
+        android:title="@string/ShowIntermediateTimes"
         android:defaultValue="true"
-        android:key="dwadaw" />
+        android:key="ShowIntermediateTimes" />
 
 </PreferenceScreen>

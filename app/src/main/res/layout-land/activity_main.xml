@@ -23,7 +23,7 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.example.kamil.cwiczenie2a.activities.MainActivity">
+        tools:context="com.example.kamil.timer.activities.MainActivity">
 
         <TextView
             android:id="@+id/TimerTextView"

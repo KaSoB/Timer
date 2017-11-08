@@ -11,13 +11,6 @@
         android:visible="true"
         app:showAsAction="always" />
     <item
-        android:id="@+id/StatsItemMenu"
-        android:icon="@drawable/ic_poll_white_36dp"
-        android:orderInCategory="100"
-        android:title="@string/Statistics"
-        android:visible="true"
-        app:showAsAction="always" />
-    <item
         android:id="@+id/SettingsItemMenu"
         android:icon="@drawable/ic_settings_white_36dp"
         android:orderInCategory="100"

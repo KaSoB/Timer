@@ -1,4 +1,4 @@
-package com.example.kamil.cwiczenie2a.models;
+package com.example.kamil.timer.models;
 
 import android.content.SharedPreferences;
 import android.os.Handler;
@@ -8,8 +8,8 @@ import android.os.SystemClock;
 import android.util.Log;
 import android.widget.TextView;
 
-import com.example.kamil.cwiczenie2a.R;
-import com.example.kamil.cwiczenie2a.interfaces.ISharedPreferences;
+import com.example.kamil.timer.R;
+import com.example.kamil.timer.interfaces.ISharedPreferences;
 
 import java.util.Locale;
 
@@ -17,7 +17,7 @@ import java.util.Locale;
  * Created by Kamil on 15.10.2017.
  */
 
-public class Timer implements Parcelable, ISharedPreferences {
+public class Timer implements ISharedPreferences {
     private boolean IsRunning = false;
 
     // Czas w danym cyklu timera, wyrażony w milisekundach.
@@ -30,13 +30,14 @@ public class Timer implements Parcelable, ISharedPreferences {
     // Służy do uwzględniania zmierzonego czasu w następnych cyklach po ponownym uruchomieniu timera.
     private long timeStopPoint = 0L;
 
-
-
-    private static final int TimerUpdateInMilliseconds = 60;
-
+    private long previousTotalTimeMilliseconds = 0L;
+    private long previousLapTimePoint = 0L;
+    private long lapTimePoint = 0L;
 
     // TextView na którym zostanie wyświetlony czas
     private TextView timerTextView;
+
+    private static final int TimerUpdateInMilliseconds = 100;
 
     public Timer(TextView timerTextView ){
         this.timerTextView = timerTextView;
@@ -50,31 +51,6 @@ public class Timer implements Parcelable, ISharedPreferences {
             timerHandler.postDelayed(this, TimerUpdateInMilliseconds);
         }
     };
-
-
-
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    public static final Creator<Timer> CREATOR = new Creator<Timer>() {
-        @Override
-        public Timer createFromParcel(Parcel in) {
-            return new Timer(in);
-        }
-
-        @Override
-        public Timer[] newArray(int size) {
-            return new Timer[size];
-        }
-    };
-
-    public void SetTextView(TextView timerTextView){
-        this.timerTextView = timerTextView;
-    }
-
     public void Start(){
         if(!IsRunning){
             IsRunning = true;
@@ -111,47 +87,24 @@ public class Timer implements Parcelable, ISharedPreferences {
         return String.format(Locale.UK, "%02d:%02d.%03d", minutes, seconds, milliseconds);
     }
 
-    private long previousTotalTimeMilliseconds = 0L;
-    private long previousLapTimePoint = 0L;
-    private long lapTimePoint = 0L;
-
     public LapTime NewLapTime(){
         // TODO: Zapytać o thread lock
         previousLapTimePoint = lapTimePoint;
         lapTimePoint =  totalTimeMilliseconds - previousTotalTimeMilliseconds;
         previousTotalTimeMilliseconds = totalTimeMilliseconds;
 
-        long lapTimeDifference = Math.abs(lapTimePoint - previousLapTimePoint);
-        return new LapTime(Transform(totalTimeMilliseconds),Transform(lapTimePoint),Transform(lapTimeDifference));
+        long intermediateTime = Math.abs(lapTimePoint - previousLapTimePoint);
+        return new LapTime(Transform(totalTimeMilliseconds),Transform(lapTimePoint),Transform(intermediateTime));
     }
-
     private void SetTimer(String time){
         timerTextView.setText(time);
     }
     private void SetTimer(int textID){
         timerTextView.setText(textID);
     }
-    protected Timer(Parcel in) {
-        IsRunning = in.readByte() != 0;
-        totalTimeMilliseconds = in.readLong();
-        startTime = in.readLong();
-        timeStopPoint = in.readLong();
-        previousTotalTimeMilliseconds = in.readLong();
-        previousLapTimePoint = in.readLong();
-        lapTimePoint = in.readLong();
-    }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeByte((byte) (IsRunning ? 1 : 0));
-        dest.writeLong(totalTimeMilliseconds);
-        dest.writeLong(startTime);
-        dest.writeLong(timeStopPoint);
-        dest.writeLong(previousTotalTimeMilliseconds);
-        dest.writeLong(previousLapTimePoint);
-        dest.writeLong(lapTimePoint);
-    }
     public void onSaveSharedPreferences(SharedPreferences.Editor editor){
+        timerHandler.removeCallbacks(timerRunnable);
         editor.putLong("StartTime", startTime);
         editor.putLong("TimeStopPoint", timeStopPoint);
         editor.putLong("PreviousTotalTimeMilliseconds", previousTotalTimeMilliseconds);

@@ -1,4 +1,4 @@
-package com.example.kamil.cwiczenie2a.interfaces;
+package com.example.kamil.timer.interfaces;
 
 import android.content.SharedPreferences;
 
