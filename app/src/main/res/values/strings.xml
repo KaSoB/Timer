@@ -1,0 +1,31 @@
+<resources>
+
+    <string name="app_name">Timer</string>
+
+    <!--- Buttons -->
+    <string name="Clear">Clear</string>
+    <string name="Stop">Stop</string>
+    <string name="Start">Start</string>
+    <string name="Lap">Lap</string>
+
+    <!-- Menu Items -->
+    <string name="Help">Help</string>
+    <string name="Settings">Settings</string>
+    <string name="Statistics">Statistics</string>
+
+    <!-- TextView -->
+    <string name="NullTime">00:00.000</string>
+
+    <!-- Headers -->
+    <string name="Column0">ID</string>
+    <string name="Column1">Lap Time</string>
+    <string name="Column2">Total Time</string>
+
+
+    <string name="NumOfLaps">Number of laps</string>
+    <string name="NumOfLapsSummary">Please provide number of results you want displayed</string>
+    <string name="ShowTimeLapDifference">Czy wyświetlać różnicę w czasach?</string>
+
+    <string name="dwadaw">true</string>
+    <string name="numOfItemsToShow">30</string>
+</resources>

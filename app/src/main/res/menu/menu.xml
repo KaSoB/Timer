@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".activities.MainActivity">
+    <item
+        android:id="@+id/HelpItemMenu"
+        android:icon="@drawable/ic_help_white_36dp"
+        android:orderInCategory="100"
+        android:title="@string/Help"
+        android:visible="true"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/StatsItemMenu"
+        android:icon="@drawable/ic_poll_white_36dp"
+        android:orderInCategory="100"
+        android:title="@string/Statistics"
+        android:visible="true"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/SettingsItemMenu"
+        android:icon="@drawable/ic_settings_white_36dp"
+        android:orderInCategory="100"
+        android:title="@string/Settings"
+        android:visible="true"
+        app:showAsAction="always" />
+</menu>
